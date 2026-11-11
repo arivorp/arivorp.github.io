@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arman Khehra — Developer Portfolio</title>
+<meta name="description" content="Arman Khehra — CS student in Berlin. Discord bots, programming languages, Linux server admin, and PC builds.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ══════════════════════════════════════════════
+   PORTFOLIO — edit projects in the <script> at
+   the bottom of this file. Push to update.
+   ══════════════════════════════════════════════ */
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root {
+  --bg: #0a0a0f;
+  --bg-card: #12121a;
+  --bg-card-hover: #1a1a28;
+  --border: #1e1e2e;
+  --text: #e4e4ef;
+  --text-dim: #8888a0;
+  --accent: #6c63ff;
+  --accent-glow: rgba(108,99,255,0.15);
+  --accent2: #00d4aa;
+  --accent3: #ff6b6b;
+  --radius: 12px;
+  --font: 'Inter', -apple-system, sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--accent); text-decoration: none; transition: color .2s; }
+a:hover { color: #8b83ff; }
+
+.container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(10,10,15,0.85); backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+nav .container {
+  display: flex; align-items: center; justify-content: space-between;
+  height: 60px;
+}
+nav .logo { font-weight: 800; font-size: 1.1rem; letter-spacing: -0.5px; }
+nav .logo span { color: var(--accent); }
+nav ul { list-style: none; display: flex; gap: 28px; }
+nav ul a { color: var(--text-dim); font-size: 0.9rem; font-weight: 500; }
+nav ul a:hover { color: var(--text); }
+
+.hamburger { display: none; background: none; border: none; color: var(--text); font-size: 1.5rem; cursor: pointer; }
+
+/* ── HERO ── */
+.hero {
+  padding: 160px 0 100px;
+  text-align: center;
+}
+.hero-tag {
+  display: inline-block;
+  background: var(--accent-glow);
+  color: var(--accent);
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 6px 16px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+.hero h1 {
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 800;
+  letter-spacing: -1.5px;
+  line-height: 1.1;
+  margin-bottom: 16px;
+}
+.hero h1 .accent { color: var(--accent); }
+.hero p {
+  font-size: 1.15rem;
+  color: var(--text-dim);
+  max-width: 600px;
+  margin: 0 auto 32px;
+}
+.hero-links { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 12px 24px; border-radius: 8px;
+  font-size: 0.9rem; font-weight: 600;
+  transition: all .2s;
+}
+.btn-primary { background: var(--accent); color: #fff; }
+.btn-primary:hover { background: #5b52e0; color: #fff; transform: translateY(-1px); }
+.btn-outline { border: 1px solid var(--border); color: var(--text); }
+.btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
+
+/* ── SECTIONS ── */
+section { padding: 80px 0; }
+.section-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--accent);
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.section-title {
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  margin-bottom: 40px;
+}
+
+/* ── PROJECT CARDS ── */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 20px;
+}
+.project-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px;
+  transition: all .25s;
+  display: flex; flex-direction: column;
+}
+.project-card:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(108,99,255,0.08);
+}
+.project-card.spotlight { border-left: 3px solid var(--accent); }
+.card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
+.card-title { font-size: 1.2rem; font-weight: 700; }
+.card-badge {
+  font-size: 0.65rem; text-transform: uppercase;
+  padding: 3px 8px; border-radius: 4px;
+  font-weight: 600; letter-spacing: 0.5px; flex-shrink: 0;
+}
+.badge-spotlight { background: var(--accent-glow); color: var(--accent); }
+.badge-project { background: rgba(0,212,170,0.1); color: var(--accent2); }
+.card-desc { color: var(--text-dim); font-size: 0.9rem; margin-bottom: 16px; flex: 1; }
+.card-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+.tag {
+  font-size: 0.75rem; font-family: var(--mono);
+  padding: 3px 10px; border-radius: 4px;
+  background: rgba(255,255,255,0.04); color: var(--text-dim);
+}
+.card-link {
+  font-size: 0.85rem; font-weight: 600;
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.card-link::after { content: '\2192'; transition: transform .2s; }
+.card-link:hover::after { transform: translateX(4px); }
+
+/* ── SKILLS ── */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px;
+}
+.skill-group {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+}
+.skill-group h3 {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--accent);
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+.skill-group p { color: var(--text-dim); font-size: 0.9rem; line-height: 1.8; }
+
+/* ── CERTIFICATES ── */
+.certs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+}
+.cert-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  transition: border-color .2s;
+}
+.cert-card:hover { border-color: var(--accent2); }
+.cert-title { font-weight: 700; margin-bottom: 4px; }
+.cert-issuer { color: var(--text-dim); font-size: 0.85rem; }
+.cert-year { color: var(--accent2); font-size: 0.8rem; font-weight: 600; margin-top: 8px; }
+
+/* ── EDUCATION ── */
+.edu-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 32px;
+  max-width: 600px;
+}
+.edu-card h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 4px; }
+.edu-card .school { color: var(--accent); font-weight: 600; margin-bottom: 4px; }
+.edu-card .period { color: var(--text-dim); font-size: 0.85rem; }
+.edu-card .langs { margin-top: 12px; color: var(--text-dim); font-size: 0.9rem; }
+
+/* ── CONTACT / FOOTER ── */
+.contact-content {
+  display: flex; gap: 16px; flex-wrap: wrap;
+}
+.contact-link {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 8px; padding: 12px 20px;
+  color: var(--text); font-weight: 500;
+  transition: all .2s;
+}
+.contact-link:hover { border-color: var(--accent); color: var(--accent); }
+
+footer {
+  border-top: 1px solid var(--border);
+  padding: 24px 0;
+  text-align: center;
+  color: var(--text-dim);
+  font-size: 0.8rem;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  nav ul { display: none; }
+  nav ul.open {
+    display: flex; flex-direction: column;
+    position: absolute; top: 60px; left: 0; right: 0;
+    background: rgba(10,10,15,0.97); padding: 20px 24px; gap: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .hamburger { display: block; }
+  .hero { padding: 120px 0 60px; }
+  .projects-grid { grid-template-columns: 1fr; }
+  .skills-grid { grid-template-columns: 1fr 1fr; }
+  .certs-grid { grid-template-columns: 1fr; }
+  section { padding: 50px 0; }
+}
+@media (max-width: 480px) {
+  .skills-grid { grid-template-columns: 1fr; }
+}
+
+/* ── CV SECTION ── */
+.cv-section {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 32px;
+  max-width: 600px;
+  text-align: center;
+}
+.cv-section p { color: var(--text-dim); margin-bottom: 20px; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="container">
+    <div class="logo">arman<span>.</span>dev</div>
+    <button class="hamburger" onclick="document.querySelector('nav ul').classList.toggle('open')">&#9776;</button>
+    <ul>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#certificates">Certificates</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#cv">CV</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="container">
+    <div class="hero-tag">Open to IT opportunities in Berlin</div>
+    <h1>Hi, I'm <span class="accent">Arman</span></h1>
+    <p>CS student at SRH Berlin, building production software since 2021. I write bots, design programming languages, administer Linux servers, and build PCs.</p>
+    <div class="hero-links">
+      <a href="#projects" class="btn btn-primary">View my work</a>
+      <a href="https://github.com/arivorp" class="btn btn-outline" target="_blank">GitHub</a>
+      <a href="cv.pdf" class="btn btn-outline" download>Download CV</a>
+    </div>
+  </div>
+</header>
+
+<!-- SPOTLIGHT PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <div class="section-label">Portfolio</div>
+    <h2 class="section-title">Spotlight Projects</h2>
+    <div class="projects-grid" id="spotlight-grid"></div>
+
+    <h2 class="section-title" style="margin-top:60px;">Other Projects</h2>
+    <div class="projects-grid" id="other-grid"></div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+    <div class="section-label">Toolkit</div>
+    <h2 class="section-title">Skills</h2>
+    <div class="skills-grid">
+      <div class="skill-group">
+        <h3>Languages</h3>
+        <p>JavaScript (Node.js), Python, SQL, HTML/CSS</p>
+      </div>
+      <div class="skill-group">
+        <h3>Frameworks & Libraries</h3>
+        <p>discord.js 14, discord.py, Express.js, Canvas (@napi-rs/canvas)</p>
+      </div>
+      <div class="skill-group">
+        <h3>Databases & Tools</h3>
+        <p>SQLite, Git/GitHub, PM2, rsync, ffmpeg</p>
+      </div>
+      <div class="skill-group">
+        <h3>AI & APIs</h3>
+        <p>Groq API (LLM + Whisper STT), Edge TTS, Pollinations AI, REST APIs</p>
+      </div>
+      <div class="skill-group">
+        <h3>Infrastructure</h3>
+        <p>Linux server admin (Ubuntu), SSH, VPS hosting, CI/CD deploys</p>
+      </div>
+      <div class="skill-group">
+        <h3>Hardware</h3>
+        <p>PC building & troubleshooting, component selection, cable management</p>
+      </div>
+      <div class="skill-group">
+        <h3>Spoken Languages</h3>
+        <p>English (native), German (learning, B1), Punjabi (native)</p>
+      </div>
+      <div class="skill-group">
+        <h3>Soft Skills</h3>
+        <p>Self-taught, problem-solving, project management, community building</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATES -->
+<section id="certificates">
+  <div class="container">
+    <div class="section-label">Credentials</div>
+    <h2 class="section-title">Certificates</h2>
+    <div class="certs-grid">
+      <div class="cert-card">
+        <div class="cert-title">Certified Game Developer</div>
+        <div class="cert-issuer">WhiteHat Jr — exceptional skills in Game Development with UI/UX interface</div>
+        <div class="cert-year">2021</div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-title">Certified Mobile App Developer</div>
+        <div class="cert-issuer">WhiteHat Jr / BYJU'S FutureSchool — Core Programming, Design Thinking, Advanced Application Development</div>
+        <div class="cert-year">2021</div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-title">Mission Mars Hackathon</div>
+        <div class="cert-issuer">WhiteHat Jr / CreatorSpace — participation in a global coding hackathon</div>
+        <div class="cert-year">July 2021</div>
+      </div>
+    </div>
+    <p style="color:var(--text-dim); margin-top:20px; font-size:0.85rem;">
+      WhiteHat Jr overall score: 99.7% &middot; 81 classes &middot; 76 projects submitted &middot; 79 quizzes &middot; 105 badges
+    </p>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="container">
+    <div class="section-label">Education</div>
+    <h2 class="section-title">Where I study</h2>
+    <div class="edu-card">
+      <h3>B.Sc. Computer Science</h3>
+      <div class="school">SRH Berlin University of Applied Sciences</div>
+      <div class="period">2025 &ndash; present &middot; 1st year</div>
+      <div class="langs">English (native) &middot; German (learning)</div>
+    </div>
+  </div>
+</section>
+
+<!-- CV -->
+<section id="cv">
+  <div class="container">
+    <div class="section-label">Resume</div>
+    <h2 class="section-title">Curriculum Vitae</h2>
+    <div class="cv-section">
+      <p>Download my CV for a complete overview of my skills, projects, and education.</p>
+      <a href="cv.pdf" class="btn btn-primary" download>Download CV (PDF)</a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="section-label">Get in touch</div>
+    <h2 class="section-title">Contact</h2>
+    <div class="contact-content">
+      <a href="mailto:armaan.txt@gmail.com" class="contact-link">armaan.txt@gmail.com</a>
+      <a href="https://github.com/arivorp" class="contact-link" target="_blank">github.com/arivorp</a>
+      <a class="contact-link">Berlin, Germany</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">&copy; 2026 Arman Khehra. Built with care.</div>
+</footer>
+
+<script>
+/* ═══════════════════════════════════════════════════════════
+   PROJECT CONFIG — edit this array to add/remove projects.
+   Push the change to GitHub Pages and the site updates.
+
+   Fields:
+     title       — project name
+     description — one-liner
+     tags        — tech used (array of strings)
+     url         — GitHub repo URL
+     spotlight   — true = featured, false = other section
+   ═══════════════════════════════════════════════════════════ */
+const PROJECTS = [
+  {
+    title: "blvck0ut",
+    description: "A goth-themed Discord bot with 100+ slash commands — souls economy, creature-collecting RPG, music streaming, custom leveling cards, moderation, TTS, and animated themed embeds. Self-hosted on a VPS.",
+    tags: ["Node.js", "discord.js 14", "SQLite", "Canvas", "yt-dlp", "PM2"],
+    url: "https://github.com/arivorp/blvck0ut",
+    spotlight: true
+  },
+  {
+    title: "Vellum",
+    description: "A small interpreted programming language written in Python. Features variables, conditionals, loops, functions, strings, lists, and detailed error reporting with file/line/column pointers.",
+    tags: ["Python", "Interpreter", "Lexer", "Parser", "Language Design"],
+    url: "https://github.com/arivorp/Vellum",
+    spotlight: true
+  },
+  {
+    title: "Bot Portfolio",
+    description: "Showcase of four production Discord bots I built and host — community management, server setup automation, AI companion, and utility microservice. All running on a single Hetzner VPS.",
+    tags: ["Node.js", "Python", "discord.js", "discord.py", "Express", "Groq API"],
+    url: "https://github.com/arivorp/bot-portfolio",
+    spotlight: true
+  },
+  {
+    title: "Flashcards",
+    description: "A terminal flashcard revision app in Python — add cards in batches, quiz mode with scoring, difficult-cards-first sorting, and JSON persistence between sessions. Built for a university class presentation.",
+    tags: ["Python", "JSON", "CLI"],
+    url: "https://github.com/arivorp/flashcards",
+    spotlight: false
+  }
+];
+
+/* ── render cards ── */
+function renderCard(p) {
+  const badge = p.spotlight
+    ? '<span class="card-badge badge-spotlight">Spotlight</span>'
+    : '<span class="card-badge badge-project">Project</span>';
+  const tags = p.tags.map(t => `<span class="tag">${t}</span>`).join('');
+  return `
+    <div class="project-card ${p.spotlight ? 'spotlight' : ''}">
+      <div class="card-header">
+        <span class="card-title">${p.title}</span>
+        ${badge}
+      </div>
+      <p class="card-desc">${p.description}</p>
+      <div class="card-tags">${tags}</div>
+      <a href="${p.url}" class="card-link" target="_blank">View on GitHub</a>
+    </div>`;
+}
+
+const spotlightGrid = document.getElementById('spotlight-grid');
+const otherGrid = document.getElementById('other-grid');
+
+PROJECTS.filter(p => p.spotlight).forEach(p => spotlightGrid.innerHTML += renderCard(p));
+PROJECTS.filter(p => !p.spotlight).forEach(p => otherGrid.innerHTML += renderCard(p));
+
+if (!PROJECTS.some(p => !p.spotlight)) {
+  otherGrid.parentElement.querySelector('h2:last-of-type')?.remove();
+  otherGrid.remove();
+}
+</script>
+</body>
+</html>
